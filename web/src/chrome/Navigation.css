@@ -7,16 +7,46 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	padding: 0;
+	height: 44px;
+	margin: 0;
+	padding: 12px 20px;
 	box-sizing: border-box;
 	z-index: 1;
 	display: flex;
+	box-shadow: #444 0 2px 8px;
 	justify-content: space-between;
 }
 
-.Navigation > a {
+.Navigation > ul {
+	margin: 0 0 0 -8px;
+	padding: 0;
+}
+
+.Navigation > ul > li {
+	display: inline-block;
+	margin-right: 8px;
+	padding: 2px 8px;
+	color: rgba(3, 150, 166, 1);
+	border-radius: 2px;
+}
+
+.Navigation > ul > li.selected {
+	background: rgba(174, 230, 209, 1);
+}
+
+.Navigation > ul > li.detail {
+	margin-left: 20px;
+	color: rgba(4, 191, 173, 1);
+}
+
+.Navigation > ul > li > a {
 	text-decoration: none;
 	cursor: pointer;
+	color: rgba(2, 72, 11, 1);
+}
+
+.Navigation > ul > li > a:hover {
+	color: rgba(242, 94, 94, 1);
 }
 
 /* mobile layout */
