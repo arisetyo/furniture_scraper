@@ -16,7 +16,7 @@ const App = () => (
 			<Content>
 				<Route path="/" exact component={Home} />
 				<Route path="/links" exact component={Links} />
-				<Route path="/details/:detailId" component={Details}/>
+				<Route path="/details/:link" component={Details}/>
 			</Content>
 		</div>
 	</HashRouter>

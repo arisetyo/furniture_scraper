@@ -22,7 +22,7 @@ const Home = () => {
 			return;
 		}
 		
-		setInfo(`Sending ${url} to server...`);
+		setInfo(`Sending "${url}" to server...`);
 
 		fetch(db_url + db_endpoint + '/link', {
 			method: 'POST',
@@ -36,7 +36,7 @@ const Home = () => {
 		})
 		.then(response => response.json())
 		.then(data => {
-			setInfo(`URL ${url} is succesfully scraped and aggregated`);
+			setInfo('Scraping & aggregation successful');
 		});
 	}
 

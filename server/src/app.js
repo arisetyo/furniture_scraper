@@ -6,6 +6,10 @@ const bodyParser = require("body-parser");
 const express = require('express');
 const Detail = require('./models/detail');
 const Link = require('./models/link');
+// const {getScrapData} = require('./scraper');
+
+const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,35 +25,64 @@ app.get('/', (_, res) => {
 });
 
 // = = = = = = = = = = = = = = Link
-// 1. LOAD
+// A-1. LOAD
 app.get('/api/v1/scraper/link', async (_, res) => {
   const link = await Link.find({});
   res.json(link);
 });
 
-// 2. SAVE
+// A-2. SAVE
 app.post('/api/v1/scraper/link', async (req, res) => {
-  const link = new Link({
-    url: req.body.url
-  });
-
+  // a. saving the url to list collection
+  const url = req.body.url;
+  const link = new Link({url});
   const savedLink = await link.save();
-  res.json(savedLink);
+
+  // b. scraping
+  puppeteer
+    .launch()
+    .then(browser => browser.newPage())
+    .then(page => {
+      return page.goto(url).then(() => {
+        return page.content();
+      });
+    })
+    .then(async html => {
+      const $ = cheerio.load(html);
+      
+      // c. getting details
+      const name = $('h1.page-title').text().trim();
+      const price = $('.product-info-main .special-price .price-wrapper > .price').text().trim();
+      const description = $('.product-info__description #description').text().trim();
+
+      // d. saving details
+      const detail = new Detail({name, price, description, link: savedLink._id});
+      const savedDetail = await detail.save();
+      res.json(savedDetail);
+    })
+    .catch(e => {
+      res.json({error: 'scraping failed'});
+    });
+});
+
+// A-3. LOAD ALL
+app.get('/api/v1/scraper/links', async (_, res) => {
+  const links = await Link.find();
+  res.json(links);
 });
 
 // = = = = = = = = = = = = = = Detail
-// 1. LOAD
-app.get('/api/v1/scraper/detail', async (_, res) => {
-  const detail = await Detail.find({});
-  res.json(detail);
+// B-1. LOAD BY ID
+app.get('/api/v1/scraper/detail', async (req, res) => {
+  const link = req.query.link;
+  const detail = await Detail.find({link});
+  res.json(detail[0]);
 });
 
-// 2. SAVE
+// B-3. SAVE
 app.post('/api/v1/scraper/detail', async (req, res) => {
-  const detail = new Detail({
-    name: req.body.name
-  });
-
+  const {name, price, description} = req.body;
+  const detail = new Detail({name, price, description, link: '5e3ed28a0ac5930df029fb72'});
   const savedDetail = await detail.save();
   res.json(savedDetail);
 });

@@ -7,11 +7,12 @@ const Schema = mongoose.Schema;
 
 const DetailSchema = new Schema({
   name: String,
-  price: Number,
+  price: String,
   description: String,
-  urlId: {type: Schema.Types.ObjectId, ref: 'Link'},
-  type: {type: String, default: 'Furniture'},
+  link: {type: Schema.Types.ObjectId, ref: 'Link'},
   createdAt: {type: Date, default: Date.now}
 });
+
+  
 
 module.exports = mongoose.model('Detail', DetailSchema);

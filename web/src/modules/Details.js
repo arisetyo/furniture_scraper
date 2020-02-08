@@ -3,29 +3,41 @@
  * @author: Arie M. Prasetyo (2020)
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {dummyData} from '../utilities/constants';
+import {db_url, db_endpoint} from '../utilities/constants';
 import styles from './Details.css';
 
 const Details = () => {
-	const {detailId} = useParams();
-	const data = dummyData && dummyData.find(i => i.id === Number(detailId));
+	const [result, setResult] = useState();
 
-	let result;
-	if (data) {
-		const {id, url, name, price, description} = data;
-		result = (
-			<div>
-				<h1>{name}</h1>
-				<h2>{price}</h2>
-				<p>{description}</p>
-				<h3>{url}</h3>
-			</div>
-		)
-	} else {
-		result = <h1>Data not found</h1>;
-	}
+	const drawData = data => {
+		if (result) return;
+
+		let ret;
+		if (data) {
+			const {url, name, price, description} = data;
+			ret = (
+				<div>
+					<h1>{name}</h1>
+					<h2>{price}</h2>
+					<p>{description}</p>
+					<h3>{url}</h3>
+				</div>
+			)
+		} else {
+			ret = <h1>Data not found</h1>;
+		}
+
+		setResult(ret);
+	};
+
+	const {link} = useParams();
+
+	fetch(db_url + db_endpoint + `/detail?link=${link}`)
+		.then(response => response.json())
+		.then(drawData);
+	
 
 	return (
 		<div className={styles.Details}>
