@@ -1,0 +1,28 @@
+/**
+ * @author: Arie M. Prasetyo (2020)
+ */
+
+.Navigation {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 0;
+	box-sizing: border-box;
+	z-index: 1;
+	display: flex;
+	justify-content: space-between;
+}
+
+.Navigation > a {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* mobile layout */
+
+@media (max-width: 800px) {
+  .Navigation {
+		padding: 10px 19px;
+	}
+}

@@ -1,0 +1,56 @@
+/**
+ * @author: Arie M. Prasetyo (2020)
+ * 
+ */
+
+/**
+ * color theme (Sleep Sense)
+ */
+.color_main {
+  color: rgba(2, 72, 11, 1);
+}
+.color_support_a {
+  color: rgba(3, 150, 166, 1);
+}
+.color_support_b {
+  color: rgba(4, 191, 173, 1);
+}
+.color_tertiary {
+  color: rgba(174, 230, 209, 1);
+}
+.color_complementary {
+  color: rgba(242, 94, 94, 1);
+}
+
+/**
+ * App
+ */
+.App {
+  padding: 8px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 12pt;
+}
+
+.App > h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 160%;
+}
+
+.App p {
+  font-size: 90%;
+  text-align: justify;
+  line-height: 1.4;
+}
+
+.App > footer {
+  position: absolute;
+  bottom: 0;
+  height: 12px;
+  width: 100%;
+  font-size: 50%;
+}
+
+.App > footer > a {
+  text-decoration: none;
+  color: grey;
+}

@@ -1,0 +1,13 @@
+/**
+ * @author: Arie M. Prasetyo (2020)
+ */
+
+.Content {
+	padding: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow-y: scroll;
+}

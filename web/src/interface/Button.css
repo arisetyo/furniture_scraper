@@ -1,0 +1,42 @@
+/**
+ * @author: Arie M. Prasetyo (2020)
+ */
+
+.Button {
+	position: relative;
+  display: inline-flex;
+	border-radius: 2px;
+	border: 1px solid rgb(174, 230, 209);
+  font-size: 70%;
+  padding: 6px 8px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.Button:disabled {
+  cursor: default;
+}
+
+.Button:after {
+  position: absolute;
+  display: block;
+  content: '';
+  background: silver;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.Button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}

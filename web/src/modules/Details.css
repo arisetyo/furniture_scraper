@@ -1,0 +1,15 @@
+/**
+ * @author: Arie M. Prasetyo (2020)
+ */
+
+.Details {
+  padding: 0;
+}
+
+/* mobile layout */
+
+@media (max-width: 800px) {
+  .Details {
+    padding: 0;
+  }
+}
