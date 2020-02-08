@@ -15,32 +15,36 @@ app.use((req, res, next) => {
   next();
 });
 
+// API endpoints
 app.get('/', (_, res) => {
   res.json({msg: `This is API server. Format "/api/v1/<collection name>"`});
 });
 
-// API endpoints
-// - Link
+// = = = = = = = = = = = = = = Link
+// 1. LOAD
 app.get('/api/v1/scraper/link', async (_, res) => {
   const link = await Link.find({});
   res.json(link);
 });
 
+// 2. SAVE
 app.post('/api/v1/scraper/link', async (req, res) => {
   const link = new Link({
-    name: req.body.name
+    url: req.body.url
   });
 
   const savedLink = await link.save();
   res.json(savedLink);
 });
 
-// - Detail
+// = = = = = = = = = = = = = = Detail
+// 1. LOAD
 app.get('/api/v1/scraper/detail', async (_, res) => {
   const detail = await Detail.find({});
   res.json(detail);
 });
 
+// 2. SAVE
 app.post('/api/v1/scraper/detail', async (req, res) => {
   const detail = new Detail({
     name: req.body.name

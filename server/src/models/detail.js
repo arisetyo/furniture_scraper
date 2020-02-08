@@ -7,6 +7,9 @@ const Schema = mongoose.Schema;
 
 const DetailSchema = new Schema({
   name: String,
+  price: Number,
+  description: String,
+  urlId: {type: Schema.Types.ObjectId, ref: 'Link'},
   type: {type: String, default: 'Furniture'},
   createdAt: {type: Date, default: Date.now}
 });

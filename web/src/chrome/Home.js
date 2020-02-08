@@ -5,6 +5,7 @@
 
 import React, {useState} from 'react';
 import styles from './Home.css';
+import {db_url, db_endpoint} from '../utilities/constants';
 import {Button} from '../interface';
 
 const Home = () => {
@@ -22,6 +23,21 @@ const Home = () => {
 		}
 		
 		setInfo(`Sending ${url} to server...`);
+
+		fetch(db_url + db_endpoint + '/link', {
+			method: 'POST',
+			mode: 'cors', // no-cors, *cors, same-origin
+			cache: 'no-cache',
+			credentials: 'same-origin',
+			headers: {'Content-Type': 'application/json'},
+			redirect: 'follow',
+			referrerPolicy: 'no-referrer',
+			body: JSON.stringify({url})
+		})
+		.then(response => response.json())
+		.then(data => {
+			setInfo(`URL ${url} is succesfully scraped and aggregated`);
+		});
 	}
 
 	return (

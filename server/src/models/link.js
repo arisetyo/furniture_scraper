@@ -6,8 +6,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const LinkSchema = new Schema({
-  name: String,
-  type: {type: String, default: 'Link'},
+  url: String,
   createdAt: {type: Date, default: Date.now}
 });
 
