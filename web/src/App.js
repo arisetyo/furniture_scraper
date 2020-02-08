@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import {HashRouter, Route} from "react-router-dom";
+import {HashRouter, Route} from 'react-router-dom';
 import {Content, Home, Navigation} from './chrome';
 import {Links, Details} from './modules';
 import styles from './App.css';

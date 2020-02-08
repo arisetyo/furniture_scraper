@@ -6,6 +6,25 @@
   padding: 0;
 }
 
+.Home > .input {
+  padding: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Home > .input > input {
+  outline: none;
+  font-size: 120%;
+  margin-right: 10px;
+  width: 500px;
+  line-height: 2em;
+  padding: 0 4px;
+}
+
+.Home > h2 {
+  color: rgba(242, 94, 94, 1);
+}
+
 /* mobile layout */
 
 @media (max-width: 800px) {
