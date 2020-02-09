@@ -6,36 +6,6 @@ import * as d3 from 'd3';
 import styles from './LineChart.css';
 
 /**
- * Documentation related to the LineChart component
- */
-export const Documentation = () => (
-	<Fragment>
-		<h3>LineChart</h3>
-		<p>
-			A basic line chart SVG component.
-		</p>
-		<LineChart
-			data={[
-				{x:10, y:10}, {x:20, y:20}, {x:30, y:15},
-				{x:40, y:30}, {x:50, y:20}, {x:60, y:25},
-				{x:70, y:14}, {x:80, y:34}, {x:90, y:32}
-			]}
-		/>
-		<pre>
-		{
-			'<LineChart\n' +
-			'\tdata={[\n' +
-			'\t\t{x:10, y:10}, {x:20, y:20}, {x:30, y:15},\n' +
-			'\t\t{x:40, y:30}, {x:50, y:20}, {x:60, y:25},\n' +
-			'\t\t{x:70, y:14}, {x:80, y:34}, {x:90, y:32}\n' +
-			'\t]}\n' +
-			'/>'
-		}
-		</pre>
-	</Fragment>
-);
-
-/**
  * Line chart
  *
  */
@@ -49,7 +19,7 @@ export class LineChart extends Component {
 		 * Transform value for the group is 32 pixels.
 		 * */
 		this.dim = {
-			w: 500,
+			w: 800,
 			h: 500,
 			t: 32
 		};
@@ -71,7 +41,7 @@ export class LineChart extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.data !== this.props.data) this.setAxis();
+		// if (prevProps.data !== this.props.data) this.setAxis();
 	}
 
   setAxis = () => {
@@ -94,14 +64,15 @@ export class LineChart extends Component {
 		 * to make sure the data fits the dimension of the chart.
 		 * */
 		
-		const xScale = d3
+		const xConverter = d3
 			.scaleLinear()
-			.domain([0, 100]) // use 0 to 100 as domain because we know beforehand the values will be inside this domain
+			.domain([0, data.length - 1])
 			.range([0, this.dim.w]);
 
-		const yScale = d3
+		const biggestValue = [...data].sort((a, b) => b - a)[0];
+		const yConverter = d3
 			.scaleLinear()
-			.domain([100, 0]) // use 0 to 100 as domain because we know beforehand the values will be inside this domain
+			.domain([biggestValue + 500000, 0])
 			.range([0, this.dim.h]);
 
 		/**
@@ -109,10 +80,10 @@ export class LineChart extends Component {
 		 * Convert data based on the scale converters.
 		 * Create an array of {x, y} objects.
 		 * */
-		const chartData = data.map(d => (
+		const chartData = data.map((d, i) => (
 			{
-				x: xScale(d.x),
-				y: yScale(d.y)
+				x: xConverter(i),
+				y: yConverter(d)
 			}
 		));
 
@@ -123,9 +94,9 @@ export class LineChart extends Component {
 		 * */
 		const lineGenerator = d3
 			.line()
-			.curve(d3.curveMonotoneX)
 			.x(d => d.x)
-			.y(d => d.y);
+			.y(d => d.y)
+			.curve(d3.curveMonotoneX);
 
 		const lineData = lineGenerator(chartData);
 
@@ -137,22 +108,22 @@ export class LineChart extends Component {
 		// CREATE SCALE BASED ON X/Y SCALES
 		this.xAxis = d3
 			.axisBottom()
-			.scale(xScale)
+			.scale(xConverter)
 			.ticks(5);
 		this.yAxis = d3
 			.axisLeft()
-			.scale(yScale)
+			.scale(yConverter)
 			.ticks(5);
 
 		this.xAxisGrid = d3
 			.axisBottom()
-			.scale(xScale)
+			.scale(xConverter)
 			.ticks(10)
 			.tickSize(-this.dim.h)
 			.tickFormat('');
 		this.yAxisGrid = d3
 			.axisLeft()
-			.scale(yScale)
+			.scale(yConverter)
 			.ticks(10)
 			.tickSize(-this.dim.w)
 			.tickFormat('');
@@ -165,16 +136,16 @@ export class LineChart extends Component {
 			<div class={styles.LineChart}>
 
 				<svg xmlns="http://www.w3.org/2000/svg"
-					width={this.dim.w + (2 * this.dim.t)}
+					width={this.dim.w + (2 * this.dim.t) + 40}
 					height={this.dim.h + (2 * this.dim.t)}>
 
-					<g transform={`translate(${this.dim.t}, ${this.dim.t})`}>
+					<g transform={`translate(${this.dim.t + 40}, ${this.dim.t})`}>
 
 						<path
 							d={lineData}
 							stroke={'#BF4904'}
 							fill={'none'}
-							strokeWidth={2}/>
+							strokeWidth={6}/>
 
 						{
 							chartData && chartData.map((d, i) => (
@@ -186,7 +157,7 @@ export class LineChart extends Component {
 									<animate
 										attributeName="r"
 										from="0"
-										to="3"
+										to="8"
 										dur=".5s"
 										repeatCount="1"
 										fill="freeze"/>

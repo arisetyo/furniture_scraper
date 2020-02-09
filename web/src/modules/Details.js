@@ -15,17 +15,7 @@ const Details = () => {
 	const drawData = data => {
 		if (result) return;
 
-		const chartData = [
-			{x:10, y:10},
-			{x:20, y:20},
-			{x:30, y:15},
-			{x:40, y:30},
-			{x:50, y:20},
-			{x:60, y:25},
-			{x:70, y:14},
-			{x:80, y:34},
-			{x:90, y:32}
-		];
+		const chartData = [1150000, 950000, 1100000, 1200000, 980000, 1200000];
 
 		const ret = data ? <Item {...data} chartData={chartData}/> : <h1>Data not found</h1>;
 		setResult(ret);

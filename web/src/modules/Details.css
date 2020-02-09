@@ -45,6 +45,7 @@
 
 .Details > .item > .chart {
   padding: 20px 0;
+  text-align: center;
 }
 
 .Details > .item > .chart > h3 {
