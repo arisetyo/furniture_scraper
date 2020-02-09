@@ -14,30 +14,19 @@ const Details = () => {
 	const drawData = data => {
 		if (result) return;
 
-		let ret;
-		if (data) {
-			const {url, name, price, description} = data;
-			ret = (
-				<div className={styles.item}>
-					<h1>{name}</h1>
-					<h2>{price}</h2>
-					<p>{description}</p>
-					<h3>{link}</h3>
-				</div>
-			)
-		} else {
-			ret = <h1>Data not found</h1>;
-		}
-
+		const ret = data ? <Item {...data}/> : <h1>Data not found</h1>;
 		setResult(ret);
 	};
 
-	const {link} = useParams();
+	// 
 
-	fetch(db_url + db_endpoint + `/detail?link=${link}`)
+	const {id} = useParams();
+
+	// load the link's data first
+	fetch(db_url + db_endpoint + `/link?id=${id}`)
 		.then(response => response.json())
 		.then(drawData);
-	
+
 
 	return (
 		<div className={styles.Details}>
@@ -45,5 +34,28 @@ const Details = () => {
 		</div>
 	)
 }
+
+const Item = ({url, name, price, description, image_main, image_sec, image_tert}) => {
+	return (
+		<div className={styles.item}>
+			<div className={styles.content}>
+				<div className={styles.info}>
+					<h1>{name}</h1>
+					<h2>{price}</h2>
+					<p>{description}</p>
+					<p>URL: <a href={url} target="_blank">{url}</a></p>
+				</div>
+				<div className={styles.imageContainer}>
+					<img src={image_main}/>
+					<img src={image_sec}/>
+					<img src={image_tert}/>
+				</div>
+			</div>
+			<div className={styles.chart}>
+				ADD CHART
+			</div>
+		</div>
+	)
+};
 
 export default Details;

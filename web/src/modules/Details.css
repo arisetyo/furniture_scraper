@@ -6,11 +6,46 @@
   padding: 0;
 }
 
-.Details > .item > h2,
-.Details > .item > h3,
-.Details > .item > h4,
-.Details > .item > p {
+.Details > .item > .content {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Details > .item > .content > .info {
+  flex: 1; 
+}
+
+.Details > .item > .content > .info > h1 {
+  color: rgba(2, 72, 11, 1);
+}
+
+.Details > .item > .content > .info > h2,
+.Details > .item > .content > .info > h3,
+.Details > .item > .content > .info > p {
   margin: 4px 0;
+}
+
+.Details > .item > .content > .info > p > a {
+  color: rgba(242, 94, 94, 1);
+  text-decoration: none;
+}
+
+.Details > .item > .content > .imageContainer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex: 1; 
+  margin-top: 20px;
+}
+
+.Details > .item > .content > .imageContainer > img {
+  width: 50%;
+  flex: 1;
+}
+
+.Details > .item > .chart {
+  background-color: burlywood;
+  padding-top: 20px;
 }
 
 /* mobile layout */

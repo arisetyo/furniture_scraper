@@ -4,13 +4,13 @@
  */
 const bodyParser = require("body-parser");
 const express = require('express');
-const Detail = require('./models/detail');
-const Link = require('./models/link');
-// const {getScrapData} = require('./scraper');
-
 const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
+//
+const Detail = require('./models/detail');
+const Link = require('./models/link');
 
+// MAIN APP
 const app = express();
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -35,7 +35,7 @@ app.get('/', (_, res) => {
  */
 app.get('/api/v1/scraper/link', async (req, res) => {
   const id = req.query.id;
-  const link = await Link.find({id});
+  const link = await Link.findById(id);
   res.json(link);
 });
 
