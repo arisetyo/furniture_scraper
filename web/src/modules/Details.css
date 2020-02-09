@@ -6,31 +6,31 @@
   padding: 0;
 }
 
-.Details > .item > .content {
+.Details > .item {
   display: flex;
   justify-content: space-evenly;
 }
 
-.Details > .item > .content > .info {
+.Details > .item > .info {
   flex: 1; 
 }
 
-.Details > .item > .content > .info > h1 {
+.Details > .item > .info > h1 {
   color: rgba(2, 72, 11, 1);
 }
 
-.Details > .item > .content > .info > h2,
-.Details > .item > .content > .info > h3,
-.Details > .item > .content > .info > p {
+.Details > .item > .info > h2,
+.Details > .item > .info > h3,
+.Details > .item > .info > p {
   margin: 4px 0;
 }
 
-.Details > .item > .content > .info > p > a {
+.Details > .item > .info > p > a {
   color: rgba(242, 94, 94, 1);
   text-decoration: none;
 }
 
-.Details > .item > .content > .imageContainer {
+.Details > .item > .imageContainer {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
@@ -38,17 +38,17 @@
   margin-top: 20px;
 }
 
-.Details > .item > .content > .imageContainer > img {
+.Details > .item > .imageContainer > img {
   width: 50%;
   flex: 1;
 }
 
-.Details > .item > .chart {
+.Details > .chart {
   padding: 20px 0;
   text-align: center;
 }
 
-.Details > .item > .chart > h3 {
+.Details > .chart > h3 {
   margin: 0;
 }
 

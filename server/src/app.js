@@ -2,7 +2,7 @@
  * main server application
  * @author: Arie M. Prasetyo (2020)
  */
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const express = require('express');
 const cheerio = require('cheerio');
 const puppeteer = require('puppeteer');
@@ -101,7 +101,7 @@ app.get('/api/v1/scraper/links', async (_, res) => {
 app.get('/api/v1/scraper/detail', async (req, res) => {
   const link = req.query.link;
   const detail = await Detail.find({link});
-  res.json(detail[0]);
+  res.json(detail);
 });
 
 /**

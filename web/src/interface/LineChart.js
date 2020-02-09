@@ -145,7 +145,7 @@ export class LineChart extends Component {
 							d={lineData}
 							stroke={'#BF4904'}
 							fill={'none'}
-							strokeWidth={6}/>
+							strokeWidth={4}/>
 
 						{
 							chartData && chartData.map((d, i) => (
@@ -157,7 +157,7 @@ export class LineChart extends Component {
 									<animate
 										attributeName="r"
 										from="0"
-										to="8"
+										to="6"
 										dur=".5s"
 										repeatCount="1"
 										fill="freeze"/>
