@@ -20,15 +20,15 @@
   padding: 8px 12px 16px 0;
 }
 
-.Links > h1 {
-  text-decoration: underline;
-}
-
-.Links > .linkContainer > .linkItem > h2,
+.Links > .linkContainer > .linkItem > a > h2,
 .Links > .linkContainer > .linkItem > h3,
 .Links > .linkContainer > .linkItem > h4,
 .Links > .linkContainer > .linkItem > p {
   margin: 4px 0;
+}
+
+.Links > .linkContainer > .linkItem > a {
+  color: rgba(2, 72, 11, 1);
 }
 
 /* mobile layout */

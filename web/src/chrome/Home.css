@@ -21,10 +21,6 @@
   padding: 0 4px;
 }
 
-.Home > h1 {
-  text-decoration: underline;
-}
-
 .Home > h2 {
   color: rgba(242, 94, 94, 1);
 }

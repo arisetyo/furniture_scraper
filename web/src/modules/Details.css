@@ -44,8 +44,11 @@
 }
 
 .Details > .item > .chart {
-  background-color: burlywood;
-  padding-top: 20px;
+  padding: 20px 0;
+}
+
+.Details > .item > .chart > h3 {
+  margin: 0;
 }
 
 /* mobile layout */

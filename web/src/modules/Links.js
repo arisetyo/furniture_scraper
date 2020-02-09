@@ -26,7 +26,7 @@ const Links = () => {
 				{
 					links && links.map( ({name, price, description, _id}) => (
 						<div className={styles.linkItem}>
-							<h2>{name}</h2>
+							<Link to={`/details/${_id}`}><h2>{name}</h2></Link>
 							<h3>{price}</h3>
 							<p>{description.substr(0, 200)}...</p>
 							<Link to={`/details/${_id}`}>See Detail</Link>

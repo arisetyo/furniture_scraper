@@ -4,8 +4,10 @@
 
 import Button from './Button';
 import Donut from './Donut';
+import LineChart from './LineChart';
 
 export {
 	Button,
-	Donut
+	Donut,
+	LineChart
 };

@@ -1,0 +1,20 @@
+/**
+ * @author: Arie M. Prasetyo (2020)
+ */
+
+.LineChart {
+	display: inline-block;
+}
+
+.LineChart > svg {
+	background: white;
+}
+
+.LineChart > svg .grid > :global(.domain) {
+  stroke-width: 0;
+}
+
+.LineChart > svg .grid > :global(.tick) {
+	stroke-opacity: 0.4;
+	shape-rendering: crispEdges;
+}
