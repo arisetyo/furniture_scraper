@@ -18,11 +18,11 @@ const Details = () => {
 		if (data) {
 			const {url, name, price, description} = data;
 			ret = (
-				<div>
+				<div className={styles.item}>
 					<h1>{name}</h1>
 					<h2>{price}</h2>
 					<p>{description}</p>
-					<h3>{url}</h3>
+					<h3>{link}</h3>
 				</div>
 			)
 		} else {

@@ -1,2 +1,6 @@
 .DS_Store
 node_modules/
+server/scraper_test.js
+server/test.html
+server/test_files/
+

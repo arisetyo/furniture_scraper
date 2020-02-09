@@ -7,6 +7,12 @@ const Schema = mongoose.Schema;
 
 const LinkSchema = new Schema({
   url: String,
+  name: String,
+  price: String,
+  description: String,
+  image_main: String,
+  image_sec: String,
+  image_tert: String,
   createdAt: {type: Date, default: Date.now}
 });
 

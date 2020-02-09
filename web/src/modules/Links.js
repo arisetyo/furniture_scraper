@@ -24,10 +24,13 @@ const Links = () => {
 			
 			<div className={styles.linkContainer}>
 				{
-					links && links.map( ({_id, url}) => (
+					links && links.map( ({name, price, description, url, link}) => (
 						<div className={styles.linkItem}>
+							<h2>{name}</h2>
+							<h3>{price}</h3>
+							<p>{description.substr(0, 200)}...</p>
 							<h4>{url}</h4>
-							<Link to={`/details/${_id}`}>See Detail</Link>
+							<Link to={`/details/${link}`}>See Detail</Link>
 						</div>
 					))
 				}

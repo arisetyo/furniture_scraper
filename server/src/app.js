@@ -24,68 +24,110 @@ app.get('/', (_, res) => {
   res.json({msg: `This is API server. Format "/api/v1/<collection name>"`});
 });
 
-// = = = = = = = = = = = = = = Link
-// A-1. LOAD
-app.get('/api/v1/scraper/link', async (_, res) => {
-  const link = await Link.find({});
+/**
+ * = = = = = = = = = = = = = = Link
+ * Link is the url and its scraped data
+ */
+
+/**
+ * A-1.
+ * Load a particular link data based on its data
+ */
+app.get('/api/v1/scraper/link', async (req, res) => {
+  const id = req.query.id;
+  const link = await Link.find({id});
   res.json(link);
 });
 
-// A-2. SAVE
+/**
+ * A-2.
+ * Scrap all data from a link and then save the resulting data
+ */
 app.post('/api/v1/scraper/link', async (req, res) => {
-  // a. saving the url to list collection
   const url = req.body.url;
-  const link = new Link({url});
-  const savedLink = await link.save();
 
-  // b. scraping
+  // a. scraping
   puppeteer
     .launch()
     .then(browser => browser.newPage())
     .then(page => {
-      return page.goto(url).then(() => {
+      return page.goto(url).then(async () => {
+        await page.waitFor(5000);
         return page.content();
       });
     })
     .then(async html => {
       const $ = cheerio.load(html);
       
-      // c. getting details
+      // b. getting link's data
       const name = $('h1.page-title').text().trim();
       const price = $('.product-info-main .special-price .price-wrapper > .price').text().trim();
       const description = $('.product-info__description #description').text().trim();
+      
+      const images = $('.fotorama__stage__frame').find('img');
+      const image_main = images && images[0] ? images[0].attribs.src : '';
+      const image_sec  = images && images[1] ? images[1].attribs.src : '';
+      const image_tert = images && images[2] ? images[2].attribs.src : '';
 
-      // d. saving details
-      const detail = new Detail({name, price, description, link: savedLink._id});
-      const savedDetail = await detail.save();
-      res.json(savedDetail);
+     // c. saving link's data
+      const link = new Link({url, name, price, description, image_main, image_sec, image_tert});
+      const savedLink = await link.save();
+      res.json(savedLink);
     })
     .catch(e => {
       res.json({error: 'scraping failed'});
     });
 });
 
-// A-3. LOAD ALL
+/**
+ * A-3.
+ * Load all links
+ */
 app.get('/api/v1/scraper/links', async (_, res) => {
   const links = await Link.find();
   res.json(links);
 });
 
-// = = = = = = = = = = = = = = Detail
-// B-1. LOAD BY ID
+/**
+ * = = = = = = = = = = = = = = Detail
+ * Detail is the scraped data gathered each hour from the recorded links
+ * Data is link_id and price
+ */
+
+/**
+ * B-1.
+ * Load all price details for a particular link
+ */
 app.get('/api/v1/scraper/detail', async (req, res) => {
   const link = req.query.link;
   const detail = await Detail.find({link});
   res.json(detail[0]);
 });
 
-// B-3. SAVE
+/**
+ * B-2.
+ * Load all details in the collection (testing purpose)
+ */
+app.get('/api/v1/scraper/details', async (_, res) => {
+  const details = await Detail.find();
+  res.json(details);
+});
+
+/**
+ * B-3.
+ * Save a detail
+ * 
+ * @var price the price
+ * @var link link id
+ * 
+ */
 app.post('/api/v1/scraper/detail', async (req, res) => {
-  const {name, price, description} = req.body;
-  const detail = new Detail({name, price, description, link: '5e3ed28a0ac5930df029fb72'});
+  const {price, link} = req.body;
+  const detail = new Detail({price, link});
   const savedDetail = await detail.save();
   res.json(savedDetail);
 });
 
-// export app
+
+// = = = = = export app = = = = = //
 module.exports = app;

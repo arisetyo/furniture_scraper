@@ -6,6 +6,13 @@
   padding: 0;
 }
 
+.Details > .item > h2,
+.Details > .item > h3,
+.Details > .item > h4,
+.Details > .item > p {
+  margin: 4px 0;
+}
+
 /* mobile layout */
 
 @media (max-width: 800px) {
