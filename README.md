@@ -25,7 +25,7 @@ The back-end codes are in the `server` directory. It consists of a API server an
 
 * Install the required libraries, run `npm install`
 * Run the front-end development server, `node dev_server.js`
-* Open the web app on `http://localhost:3000/`
+* Open the web app on `http://localhost:3001/`
 
 
 

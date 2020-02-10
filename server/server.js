@@ -5,7 +5,7 @@
 
 const mongoose = require('mongoose');
 const app = require('./src/app');
-const port = 3001;
+const port = 3000;
 const {DB_URI} = require('./src/config');
 
 mongoose.connect(DB_URI);
