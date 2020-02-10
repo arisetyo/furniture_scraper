@@ -38,8 +38,10 @@ const Details = () => {
 	const drawChart = data => {
 		if (prices) return;
 
-		const chartData = data.map(d => (formattedStrToNumber(d.price)));
-		setPrices(chartData)
+		if (data) {
+			const chartData = data.map(d => ({time: d.createdAt, price: formattedStrToNumber(d.price)}));
+			setPrices(chartData)
+		}
 	}
 
 	// load the price data
@@ -58,7 +60,7 @@ const Details = () => {
 
 			<div className={styles.chart}>
 				<h3>Price movement</h3>
-				{prices ? <LineChart data={prices}/> : ''}
+				{prices && prices.length ? <LineChart data={prices}/> : ''}
 			</div>
 		</div>
 	)

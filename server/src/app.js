@@ -46,37 +46,32 @@ app.get('/api/v1/scraper/link', async (req, res) => {
 app.post('/api/v1/scraper/link', async (req, res) => {
   const url = req.body.url;
 
-  // a. scraping
-  puppeteer
-    .launch()
-    .then(browser => browser.newPage())
-    .then(page => {
-      return page.goto(url).then(async () => {
-        await page.waitFor(5000);
-        return page.content();
-      });
-    })
-    .then(async html => {
-      const $ = cheerio.load(html);
-      
-      // b. getting link's data
-      const name = $('h1.page-title').text().trim();
-      const price = $('.product-info-main .special-price .price-wrapper > .price').text().trim();
-      const description = $('.product-info__description #description').text().trim();
-      
-      const images = $('.fotorama__stage__frame').find('img');
-      const image_main = images && images[0] ? images[0].attribs.src : '';
-      const image_sec  = images && images[1] ? images[1].attribs.src : '';
-      const image_tert = images && images[2] ? images[2].attribs.src : '';
+  // load the page
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-     // c. saving link's data
-      const link = new Link({url, name, price, description, image_main, image_sec, image_tert});
-      const savedLink = await link.save();
-      res.json(savedLink);
-    })
-    .catch(e => {
-      res.json({error: 'scraping failed'});
-    });
+  await page.goto(url);
+  await page.waitFor(5000);
+
+  const content = await page.content();
+  await page.close();
+
+  // scraping
+  const $ = cheerio.load(content);
+  const name = $('h1.page-title').text().trim();
+  const price = $('.product-info-main .special-price .price-wrapper > .price').text().trim();
+  const description = $('.product-info__description #description').text().trim();
+
+  const images = $('.fotorama__stage__frame').find('img');
+  const image_main = images && images[0] ? images[0].attribs.src : '';
+  const image_sec  = images && images[1] ? images[1].attribs.src : '';
+  const image_tert = images && images[2] ? images[2].attribs.src : '';
+  
+  // saving
+  const link = new Link({url, name, price, description, image_main, image_sec, image_tert});
+  const savedLink = await link.save();
+  await browser.close();
+  res.json(savedLink);
 });
 
 /**

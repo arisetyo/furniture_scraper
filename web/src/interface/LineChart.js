@@ -21,7 +21,7 @@ export class LineChart extends Component {
 		this.dim = {
 			w: 800,
 			h: 500,
-			t: 32
+			t: 54
 		};
 
 		this.xAxis = null;
@@ -29,7 +29,8 @@ export class LineChart extends Component {
 
 		this.state = {
 			lineData: null,
-			chartData: null
+			chartData: null,
+			toolTip: null
 		};
 	}
 
@@ -41,7 +42,7 @@ export class LineChart extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		// if (prevProps.data !== this.props.data) this.setAxis();
+		if (prevProps.data !== this.props.data) this.setAxis();
 	}
 
   setAxis = () => {
@@ -72,7 +73,7 @@ export class LineChart extends Component {
 		const biggestValue = [...data].sort((a, b) => b - a)[0];
 		const yConverter = d3
 			.scaleLinear()
-			.domain([biggestValue + 500000, 0])
+			.domain([biggestValue.price + 500000, 0])
 			.range([0, this.dim.h]);
 
 		/**
@@ -83,7 +84,9 @@ export class LineChart extends Component {
 		const chartData = data.map((d, i) => (
 			{
 				x: xConverter(i),
-				y: yConverter(d)
+				y: yConverter(d.price),
+				value: d.price,
+				time: d.time
 			}
 		));
 
@@ -129,8 +132,39 @@ export class LineChart extends Component {
 			.tickFormat('');
 	}
 
+	showToolTip = (x, y, d, t) => {
+		const date = new Date(t);
+		const toolTip = (
+			<Fragment>
+				<rect
+					width="94"
+					height="30"
+					fill="#385273"
+					x={x - 36}
+					y={y - 36}
+					rx={3}
+					ry={3}/>
+				<text
+					x={x - 30}
+					y={y - 24}
+					fill="#FFFFFF"
+					font-size="10">
+					{`Rp${new Intl.NumberFormat('id').format(d)}`}
+				</text>
+				<text
+					x={x - 30}
+					y={y - 12}
+					fill="#FFFFFF"
+					font-size="10">
+					{date.toLocaleDateString('id', {day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'})}
+				</text>
+			</Fragment>
+		);
+		this.setState({toolTip});
+	}
+
 	render() {
-		const {lineData, chartData} = this.state;
+		const {lineData, chartData, toolTip} = this.state;
 
 		return (
 			<div class={styles.LineChart}>
@@ -153,7 +187,8 @@ export class LineChart extends Component {
 									cx={d.x}
 									cy={d.y}
 									fill="#385273"
-									stroke="none">
+									stroke="none"
+									onMouseOver={e => this.showToolTip(d.x, d.y, d.value, d.time)}>
 									<animate
 										attributeName="r"
 										from="0"
@@ -171,6 +206,8 @@ export class LineChart extends Component {
 								</circle>
 							))
 						}
+
+						{toolTip}
 
 						<g
 							class={styles.grid}

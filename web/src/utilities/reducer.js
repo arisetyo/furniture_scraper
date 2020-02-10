@@ -3,7 +3,7 @@
  * @author: Arie M. Prasetyo (2020)
  */
 
-import {composeWithDevTools} from 'redux-devtools-extension';
+// import {composeWithDevTools} from 'redux-devtools-extension';
 import {createStore} from 'redux';
 
 const defaultState = {
@@ -14,5 +14,5 @@ const reducer = (state = defaultState, action) => {
 	return state;
 };
 
-export const store = createStore(reducer, composeWithDevTools());
-// export const store = createStore(reducer);
+// export const store = createStore(reducer, composeWithDevTools()); // development
+export const store = createStore(reducer); // production
