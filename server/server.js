@@ -10,6 +10,7 @@ const {DB_URI} = require('./src/config');
 
 mongoose.connect(DB_URI);
 
+// Start the API server app
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });

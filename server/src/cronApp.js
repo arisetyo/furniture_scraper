@@ -9,8 +9,13 @@ const puppeteer = require('puppeteer')
 const Detail = require('./models/detail');
 const Link = require('./models/link');
 
+/**
+ * Cron server app
+ * scrap and save price data in an interval of time
+ */
 const app = express();
 
+// set interval to one hour
 const interval = 60 * 60 * 1000;
 
 setInterval( async () => {

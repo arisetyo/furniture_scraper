@@ -6,27 +6,28 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {db_url, db_endpoint} from '../utilities/constants';
+import {formattedStrToNumber} from '../utilities/tools';
 import {LineChart} from '../interface';
 import styles from './Details.css';
 
+/**
+ * Details
+ * This component show the detail of the saved link.
+ * The page shows the product's (from the link) name, price, and description
+ * as well as the source url and some preview images.
+ * 
+ * The component also has a chart showing the price values gathered hourly
+ * since the url is saved
+ */
 const Details = () => {
 	const {id} = useParams(); // link collection id
 	const [result, setResult] = useState();
 	const [prices, setPrices] = useState();
 
-	// return number from formatted rupiah price
-	const formattedStrToNumber = str => {
-		if (str === '') return 0;
-
-		const stripped = str
-			.substring(3, str.length)
-			.replace(/[$.]+/g, '');
-
-		return stripped ? Number(stripped) : 0;
-	};
-
-
-	// render component for product info
+	/**
+	 * render component for product info
+	 * @param {array} data Product data
+	 */
 	const drawData = data => {
 		if (result) return;
 
@@ -34,7 +35,10 @@ const Details = () => {
 		setResult(ret);
 	};
 
-	// get data for chart
+	/**
+	 * get data for the chart component
+	 * @param {array} data Prices gathered each hour for this product
+	 */
 	const drawChart = data => {
 		if (prices) return;
 
@@ -44,12 +48,16 @@ const Details = () => {
 		}
 	}
 
-	// load the price data
+	/**
+	 * load the price data from backend
+	 */
 	fetch(db_url + db_endpoint + `/detail?link=${id}`)
 		.then(response => response.json())
 		.then(drawChart);
 	
-	// load the link's data
+	/**
+	 * load the link's data from backend
+	 */
 	fetch(db_url + db_endpoint + `/link?id=${id}`)
 		.then(response => response.json())
 		.then(drawData);
@@ -66,6 +74,11 @@ const Details = () => {
 	)
 }
 
+/**
+ * Item
+ * A component that is rendered once the data is gathered
+ * @param {object} param an object containing the url, name, price, description, image_main, image_sec, image_tert values
+ */
 const Item = ({url, name, price, description, image_main, image_sec, image_tert}) => {
 	return (
 		<div className={styles.item}>

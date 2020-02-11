@@ -1,6 +1,9 @@
 import path from 'path';
 import express from 'express';
 
+/**
+ * Simple Node server for front-end development on a container
+ */
 const port = 3001;
 const app = express();
 

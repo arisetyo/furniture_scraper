@@ -5,6 +5,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+/**
+ * Link schema
+ * Collection for url entered by user and the resulting scraped data
+ * Fields:
+ * * url
+ * * name
+ * * price
+ * * description
+ * * images
+ */
 const LinkSchema = new Schema({
   url: String,
   name: String,

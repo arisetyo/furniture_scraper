@@ -3,7 +3,7 @@
  * @author: Arie M. Prasetyo (2020)
  */
 
-// import {composeWithDevTools} from 'redux-devtools-extension';
+// import {composeWithDevTools} from 'redux-devtools-extension'; // development
 import {createStore} from 'redux';
 
 const defaultState = {

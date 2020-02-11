@@ -10,7 +10,10 @@ const puppeteer = require('puppeteer');
 const Detail = require('./models/detail');
 const Link = require('./models/link');
 
-// MAIN APP
+/**
+ * Main server app
+ * serves API's to interact with the database
+ */
 const app = express();
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -19,7 +22,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// API endpoints
+/**
+ * default API endpoint
+ */
 app.get('/', (_, res) => {
   res.json({msg: `This is API server. Format "/api/v1/<collection name>"`});
 });
@@ -30,7 +35,7 @@ app.get('/', (_, res) => {
  */
 
 /**
- * A-1.
+ * A-1.GET link
  * Load a particular link data based on its data
  */
 app.get('/api/v1/scraper/link', async (req, res) => {
@@ -40,7 +45,7 @@ app.get('/api/v1/scraper/link', async (req, res) => {
 });
 
 /**
- * A-2.
+ * A-2. POST link
  * Scrap all data from a link and then save the resulting data
  */
 app.post('/api/v1/scraper/link', async (req, res) => {
@@ -75,7 +80,7 @@ app.post('/api/v1/scraper/link', async (req, res) => {
 });
 
 /**
- * A-3.
+ * A-3. GET all links
  * Load all links
  */
 app.get('/api/v1/scraper/links', async (_, res) => {
@@ -90,8 +95,9 @@ app.get('/api/v1/scraper/links', async (_, res) => {
  */
 
 /**
- * B-1.
+ * B-1. GET detail
  * Load all price details for a particular link
+ * @param string link Link ID
  */
 app.get('/api/v1/scraper/detail', async (req, res) => {
   const link = req.query.link;
@@ -100,7 +106,7 @@ app.get('/api/v1/scraper/detail', async (req, res) => {
 });
 
 /**
- * B-2.
+ * B-2. GET all details
  * Load all details in the collection (testing purpose)
  */
 app.get('/api/v1/scraper/details', async (_, res) => {
@@ -109,7 +115,7 @@ app.get('/api/v1/scraper/details', async (_, res) => {
 });
 
 /**
- * B-3.
+ * B-3. POST detail
  * Save a detail
  * 
  * @var price the price

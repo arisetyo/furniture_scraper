@@ -5,6 +5,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+/**
+ * Detail schema
+ * Collection for the gathered price each hour by the cron server
+ * Fields:
+ * * price
+ * * link (Link _id)
+ */
 const DetailSchema = new Schema({
   price: String,
   link: {type: Schema.Types.ObjectId, ref: 'Link'}, // link id

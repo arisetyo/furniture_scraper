@@ -9,9 +9,15 @@ import {db_url, db_endpoint} from '../utilities/constants';
 import {dummyData} from '../utilities/constants';
 import styles from './Links.css';
 
+/**
+ * Links
+ * This component show all the saved links in the database.
+ * The list show the product's (from the link) name, price, and description
+ */
 const Links = () => {
 	const [links, setLinks] = useState();
 
+	// get the links data from the backend
 	fetch(db_url + db_endpoint + '/links')
 		.then(response => response.json())
 		.then(data => {

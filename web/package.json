@@ -4,7 +4,7 @@
   "description": "Scraper and aggregator for online furniture shop data",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/_mocha --opts ./mocha.opts",
+    "test": "node_modules/mocha/bin/_mocha --opts ./mocha.opts ./src/utilities/tools.tests.js",
     "start": "node index.js",
     "start-webpack-server": "node dev_server.js",
     "build": "webpack"

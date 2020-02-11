@@ -8,6 +8,10 @@ import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import styles from './Navigation.css';
 
+/**
+ * Navigation
+ * Component that contains main menu bar
+ */
 class Navigation extends Component {
 	state = {};
 

@@ -7,7 +7,7 @@ import styles from './LineChart.css';
 
 /**
  * Line chart
- *
+ * An SVG line chart using D3
  */
 export class LineChart extends Component {
 	constructor(props) {
