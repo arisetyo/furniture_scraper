@@ -30,12 +30,12 @@ setInterval( async () => {
     // scraping
     const $ = cheerio.load(content);
     const price = $('.product-info-main .special-price .price-wrapper > .price').text().trim();
-    
+
+    await browser.close();
+
     // saving
     const detail = new Detail({price, link: l._id});
     await detail.save();
-
-    await browser.close();
   });
 
 }, interval);
