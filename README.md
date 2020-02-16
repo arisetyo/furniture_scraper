@@ -1,6 +1,8 @@
 # Furniture web scraper & aggregator
 `furniture_scraper` is a scraper &amp; aggregator of online furniture store data.
 
+Working example's URL: http://labs.uixamp.net/furniture/
+
 ## Requirement
 
 Node JS, Mongo DB
