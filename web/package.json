@@ -34,7 +34,7 @@
     "jsdom": "^15.2.1",
     "jsdom-global": "^3.0.2",
     "mini-css-extract-plugin": "^0.8.0",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "postcss-loader": "^3.0.0",
     "style-loader": "^1.0.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
